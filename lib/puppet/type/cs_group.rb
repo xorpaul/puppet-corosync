@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Puppet::Type.newtype(:cs_group) do
   @doc = "Type for manipulating Corosync/Pacemkaer group entries.
     Groups are a set or resources (primitives) that need to be
