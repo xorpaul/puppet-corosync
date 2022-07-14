@@ -29,4 +29,5 @@ class corosync::params {
   $manage_pacemaker_service            = true
   $test_corosync_config                = true
   $package_install_options = undef
+  $transport_type                      = 'udpu'
 }

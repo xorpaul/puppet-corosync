@@ -51,7 +51,7 @@ totem {
   threads:                             <%= @threads %>
 <% end -%>
 <% if @unicast_addresses -%>
-  transport:                           udpu
+  transport:                           <%= @transport_type %>
 <% Array(@unicast_addresses.first).each_index do |interface| -%>
   interface {
 <% if not @set_votequorum -%>

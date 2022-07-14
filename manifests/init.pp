@@ -316,6 +316,9 @@
 # @param provider
 #   What command line utility provides corosync configuration capabilities.
 #
+# @param transport_type
+#   What transport type to use between the members, defaults to udpu
+#
 # @example Simple configuration without secauth
 #
 #  class { 'corosync':
@@ -403,6 +406,7 @@ class corosync (
   Optional[Variant[Stdlib::Absolutepath, Enum['off']]] $watchdog_device = undef,
   Enum['pcs', 'crm'] $provider                                          = 'pcs',
   String $pcs_version                                                   = '',
+  String $transport_type                                                = 'udpu',
 ) inherits corosync::params {
   if $set_votequorum and (empty($quorum_members) and empty($multicast_address) and !$cluster_name) {
     fail('set_votequorum is true, so you must set either quorum_members, or one of multicast_address or cluster_name.')
@@ -664,7 +668,7 @@ class corosync (
       $quorum_host = "host=${quorum_device_host}"
       $quorum_algorithm = "algorithm=${quorum_device_algorithm}"
       $quorum_setup_cmd =
-        "pcs quorum device add model net ${quorum_host} ${quorum_algorithm}"
+      "pcs quorum device add model net ${quorum_host} ${quorum_algorithm}"
       exec { 'pcs_cluster_add_qdevice':
         command => $quorum_setup_cmd,
         path    => $exec_path,
